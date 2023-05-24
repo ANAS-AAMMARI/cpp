@@ -6,7 +6,7 @@
 #    By: aaammari <aaammari@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/23 14:06:44 by aaammari          #+#    #+#              #
-#    Updated: 2023/05/23 14:12:57 by aaammari         ###   ########.fr        #
+#    Updated: 2023/05/24 09:30:10 by aaammari         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ Name = PhoneBook
 
 CC = c++
 
-CFLAGS = -Wall -Werror -Wextra
+CFLAGS = -Wall -Werror -Wextra -std=c++98
 
 HEADER = Contact.hpp PhoneBook.hpp
 
