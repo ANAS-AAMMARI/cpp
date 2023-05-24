@@ -6,7 +6,7 @@
 #    By: aaammari <aaammari@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/24 16:37:34 by aaammari          #+#    #+#              #
-#    Updated: 2023/05/24 18:07:11 by aaammari         ###   ########.fr        #
+#    Updated: 2023/05/24 18:41:28 by aaammari         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,8 +20,7 @@ HEADER = Zombie.hpp
 
 SRC = main.cpp		\
 	Zombie.cpp 		\
-	newZombie.cpp	\
-	randomChump.cpp	\
+	zombieHorde.cpp	\
 
 OBJ = $(SRC:.cpp=.o)
 
