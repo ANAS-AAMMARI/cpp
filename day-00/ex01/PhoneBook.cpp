@@ -6,7 +6,7 @@
 /*   By: aaammari <aaammari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 18:42:50 by aaammari          #+#    #+#             */
-/*   Updated: 2023/05/24 11:46:27 by aaammari         ###   ########.fr       */
+/*   Updated: 2023/05/24 11:47:18 by aaammari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ void PhoneBook::ADD(void)
 		std::cout << "enter ur darkestSecret: ";
 		std::getline(std::cin, darkestSecret);
 		if (std::cin.eof())
-			return ;`		
+			return ;		
 	}while(darkestSecret.empty() || firstName.compare(" ") == 0);
 	
 	Contact cnt = Contact(firstName, lastName, nickname, phoneNumber, darkestSecret);
