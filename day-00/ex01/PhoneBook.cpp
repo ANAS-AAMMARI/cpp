@@ -6,7 +6,7 @@
 /*   By: aaammari <aaammari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 18:42:50 by aaammari          #+#    #+#             */
-/*   Updated: 2023/05/24 11:47:18 by aaammari         ###   ########.fr       */
+/*   Updated: 2023/05/24 12:41:43 by aaammari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,15 @@ PhoneBook::~PhoneBook()
 
 }
 
+int	check_space(std::string s)
+{
+	size_t i = 0;
+	const char *str = s.c_str();
+	while (str[i] && std::isspace(str[i]))
+		i++;
+	return (i == s.length());
+}
+
 void PhoneBook::ADD(void)
 {
 	std::string firstName = "";
@@ -39,7 +48,7 @@ void PhoneBook::ADD(void)
 		std::getline(std::cin, firstName);
 		if (std::cin.eof())
 			return ;
-	}while(firstName.empty() || firstName.compare(" ") == 0);
+	}while(firstName.empty() || check_space(firstName));
 	
 	do
 	{
@@ -47,7 +56,7 @@ void PhoneBook::ADD(void)
 		std::getline(std::cin, lastName);
 		if (std::cin.eof())
 			return ;
-	}while(lastName.empty() || firstName.compare(" ") == 0);
+	}while(lastName.empty() || check_space(firstName));
 	
 	do
 	{
@@ -55,7 +64,7 @@ void PhoneBook::ADD(void)
 		std::getline(std::cin, nickname);
 		if (std::cin.eof())
 			return ;
-	}while(nickname.empty() || firstName.compare(" ") == 0);
+	}while(nickname.empty() || check_space(firstName));
 	
 	do
 	{
@@ -63,7 +72,7 @@ void PhoneBook::ADD(void)
 		std::getline(std::cin, phoneNumber);
 		if (std::cin.eof())
 			return ;
-	}while(phoneNumber.empty() || firstName.compare(" ") == 0);
+	}while(phoneNumber.empty() || check_space(firstName));
 	
 	do
 	{
@@ -71,7 +80,7 @@ void PhoneBook::ADD(void)
 		std::getline(std::cin, darkestSecret);
 		if (std::cin.eof())
 			return ;		
-	}while(darkestSecret.empty() || firstName.compare(" ") == 0);
+	}while(darkestSecret.empty() || check_space(firstName));
 	
 	Contact cnt = Contact(firstName, lastName, nickname, phoneNumber, darkestSecret);
 	if (idx >= 8)
@@ -127,7 +136,7 @@ void PhoneBook::SEARCH(void)
 	{
 		if (i >= 8)
 			break;
-		std::cout << "|" << std::right << std::setw(10) << i << "|";
+		std::cout << "|" << std::right << std::setw(10) << i + 1 << "|";
 		std::cout << std::right << std::setw(10) << _format(this->contacts[i].getFirstName()) << "|";
 		std::cout << std::right << std::setw(10) << _format(this->contacts[i].getLastName()) << "|";
 		std::cout << std::right << std::setw(10) << _format(this->contacts[i].getNickName()) << "|" << std::endl;
@@ -140,13 +149,13 @@ void PhoneBook::SEARCH(void)
 	if (check_digit(str))
 	{
 		idx = std::atoi(str.c_str());
-		if (idx >= 0 && idx < objectCount && idx < 8)
+		if (idx >= 0 && idx < objectCount + 1 && idx <= 8)
 		{
 			table_header();
 			std::cout << "|" << std::right << std::setw(10) << idx << "|";
-			std::cout << std::right << std::setw(10) << _format(this->contacts[idx].getFirstName()) << "|";
-			std::cout << std::right << std::setw(10) << _format(this->contacts[idx].getLastName()) << "|";
-			std::cout << std::right << std::setw(10) << _format(this->contacts[idx].getNickName()) << "|" << std::endl;
+			std::cout << std::right << std::setw(10) << _format(this->contacts[idx - 1].getFirstName()) << "|";
+			std::cout << std::right << std::setw(10) << _format(this->contacts[idx - 1].getLastName()) << "|";
+			std::cout << std::right << std::setw(10) << _format(this->contacts[idx - 1].getNickName()) << "|" << std::endl;
 			std::cout << " " << std::right << std::setw(10) << "-------------------------------------------" << "\n";
 		}
 		else
