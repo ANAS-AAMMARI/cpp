@@ -6,7 +6,7 @@
 /*   By: aaammari <aaammari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 18:42:50 by aaammari          #+#    #+#             */
-/*   Updated: 2023/05/24 12:41:43 by aaammari         ###   ########.fr       */
+/*   Updated: 2023/05/24 14:43:41 by aaammari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ void PhoneBook::ADD(void)
 		std::getline(std::cin, lastName);
 		if (std::cin.eof())
 			return ;
-	}while(lastName.empty() || check_space(firstName));
+	}while(lastName.empty() || check_space(lastName));
 	
 	do
 	{
@@ -64,7 +64,7 @@ void PhoneBook::ADD(void)
 		std::getline(std::cin, nickname);
 		if (std::cin.eof())
 			return ;
-	}while(nickname.empty() || check_space(firstName));
+	}while(nickname.empty() || check_space(nickname));
 	
 	do
 	{
@@ -72,7 +72,7 @@ void PhoneBook::ADD(void)
 		std::getline(std::cin, phoneNumber);
 		if (std::cin.eof())
 			return ;
-	}while(phoneNumber.empty() || check_space(firstName));
+	}while(phoneNumber.empty() || check_space(phoneNumber));
 	
 	do
 	{
@@ -80,7 +80,7 @@ void PhoneBook::ADD(void)
 		std::getline(std::cin, darkestSecret);
 		if (std::cin.eof())
 			return ;		
-	}while(darkestSecret.empty() || check_space(firstName));
+	}while(darkestSecret.empty() || check_space(darkestSecret));
 	
 	Contact cnt = Contact(firstName, lastName, nickname, phoneNumber, darkestSecret);
 	if (idx >= 8)
