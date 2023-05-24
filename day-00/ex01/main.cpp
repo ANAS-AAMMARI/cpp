@@ -6,7 +6,7 @@
 /*   By: aaammari <aaammari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/20 18:24:43 by aaammari          #+#    #+#             */
-/*   Updated: 2023/05/23 11:45:45 by aaammari         ###   ########.fr       */
+/*   Updated: 2023/05/24 11:21:20 by aaammari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,10 @@ void cmd(PhoneBook ph)
 	do{
 		if (std::cin.eof())
 			return ;
-		std::cout <<std::internal << std::setw(26) << "--------------help---------------" << std::endl;
-		std::cout <<std::left << std::setw(26) << "|	1- \"ADD\" Contact" << std::right << "|" << std::endl;
-		std::cout <<std::left << std::setw(26) << "|	2- \"SEARCH\" for a Contact" << std::right << "|" << std::endl;
-		std::cout <<std::left << std::setw(26) << "|	3- \"EXIT\"" << std::right << "|" << std::endl;
+		std::cout <<std::internal << std::setw(28) << " -------------help----------------" << std::endl;
+		std::cout <<std::left << std::setw(28) << "|	1- \"ADD\" Contact" << std::right << "|" << std::endl;
+		std::cout <<std::left << std::setw(28) << "|	2- \"SEARCH\" for a Contact" << std::right << "|" << std::endl;
+		std::cout <<std::left << std::setw(28) << "|	3- \"EXIT\"" << std::right << "|" << std::endl;
 		std::cout << "> ";
 		std::getline(std::cin, cmd);
 		if (cmd.compare("ADD") == 0)

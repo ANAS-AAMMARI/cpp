@@ -6,7 +6,7 @@
 /*   By: aaammari <aaammari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 18:42:50 by aaammari          #+#    #+#             */
-/*   Updated: 2023/05/23 11:50:32 by aaammari         ###   ########.fr       */
+/*   Updated: 2023/05/24 11:46:27 by aaammari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void PhoneBook::ADD(void)
 		std::getline(std::cin, firstName);
 		if (std::cin.eof())
 			return ;
-	}while(firstName.empty());
+	}while(firstName.empty() || firstName.compare(" ") == 0);
 	
 	do
 	{
@@ -47,7 +47,7 @@ void PhoneBook::ADD(void)
 		std::getline(std::cin, lastName);
 		if (std::cin.eof())
 			return ;
-	}while(lastName.empty());
+	}while(lastName.empty() || firstName.compare(" ") == 0);
 	
 	do
 	{
@@ -55,7 +55,7 @@ void PhoneBook::ADD(void)
 		std::getline(std::cin, nickname);
 		if (std::cin.eof())
 			return ;
-	}while(nickname.empty());
+	}while(nickname.empty() || firstName.compare(" ") == 0);
 	
 	do
 	{
@@ -63,15 +63,15 @@ void PhoneBook::ADD(void)
 		std::getline(std::cin, phoneNumber);
 		if (std::cin.eof())
 			return ;
-	}while(phoneNumber.empty());
+	}while(phoneNumber.empty() || firstName.compare(" ") == 0);
 	
 	do
 	{
 		std::cout << "enter ur darkestSecret: ";
 		std::getline(std::cin, darkestSecret);
 		if (std::cin.eof())
-			return ;
-	}while(darkestSecret.empty());
+			return ;`		
+	}while(darkestSecret.empty() || firstName.compare(" ") == 0);
 	
 	Contact cnt = Contact(firstName, lastName, nickname, phoneNumber, darkestSecret);
 	if (idx >= 8)
@@ -134,7 +134,7 @@ void PhoneBook::SEARCH(void)
 		std::cout << " " << std::right << std::setw(10) << "-------------------------------------------" << "\n";
 	}
 	std::cout << "enter idx of the contact that u need: ";
-	std::cin >> str;
+	std::getline(std::cin, str);
 	if (std::cin.eof())
 		exit(0);
 	if (check_digit(str))
