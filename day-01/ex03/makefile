@@ -5,18 +5,23 @@
 #                                                     +:+ +:+         +:+      #
 #    By: aaammari <aaammari@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2023/05/24 18:55:17 by aaammari          #+#    #+#              #
-#    Updated: 2023/05/26 15:25:20 by aaammari         ###   ########.fr        #
+#    Created: 2023/05/26 15:13:56 by aaammari          #+#    #+#              #
+#    Updated: 2023/05/26 15:25:10 by aaammari         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = ex02
+NAME = weapon
 
 CC = c++ 
 
 CFLAGS = -Wall -Werror -Wextra -std=c++98
 
-SRC = main.cpp
+HEADER = HumanA.hpp HumanB.hpp Weapon.hpp
+
+SRC = 	main.cpp 	\
+		HumanA.cpp	\
+		HumanB.cpp	\
+		Weapon.cpp
 
 OBJ = $(SRC:%.cpp=%.o)
 
@@ -26,7 +31,7 @@ $(NAME): $(OBJ)
 	@$(CC) $(CFLAGS) $(OBJ) -o $(NAME)
 	@echo make is done 
 
-%.o: %.cpp
+%.o: %.cpp $(HEADER)
 	@$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
