@@ -6,7 +6,7 @@
 /*   By: aaammari <aaammari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 18:42:50 by aaammari          #+#    #+#             */
-/*   Updated: 2023/05/24 14:43:41 by aaammari         ###   ########.fr       */
+/*   Updated: 2023/05/30 18:21:49 by aaammari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,6 +106,8 @@ std::string _format(std::string value)
 
 int	check_digit(std::string str)
 {
+	if (str.empty())
+		return (0);
 	size_t i = 0;
 	while (str[i] && std::isdigit(str[i]))
 		i++;
@@ -149,14 +151,25 @@ void PhoneBook::SEARCH(void)
 	if (check_digit(str))
 	{
 		idx = std::atoi(str.c_str());
-		if (idx >= 0 && idx < objectCount + 1 && idx <= 8)
+		if (idx > 0 && idx < objectCount + 1 && idx <= 8)
 		{
-			table_header();
-			std::cout << "|" << std::right << std::setw(10) << idx << "|";
-			std::cout << std::right << std::setw(10) << _format(this->contacts[idx - 1].getFirstName()) << "|";
-			std::cout << std::right << std::setw(10) << _format(this->contacts[idx - 1].getLastName()) << "|";
-			std::cout << std::right << std::setw(10) << _format(this->contacts[idx - 1].getNickName()) << "|" << std::endl;
-			std::cout << " " << std::right << std::setw(10) << "-------------------------------------------" << "\n";
+			std::string str(90, '-');
+			std::cout << " " << str << "\n";
+			std::cout << "|" << std::right << std::setw(14) << "index" << "|";
+			std::cout << std::right << std::setw(14) << "FirstName" << "|";
+			std::cout << std::right << std::setw(14) << "LastName" << "|";
+			std::cout << std::right << std::setw(14) << "NickName" << "|";
+			std::cout << std::right << std::setw(14) << "phone number" << "|";
+			std::cout << std::right << std::setw(14) << "darkest secret" << "|" << std::endl;
+			std::cout << " " << str << "\n";
+		
+			std::cout << "|" << std::right << std::setw(14) << idx << "|";
+			std::cout << std::right << std::setw(14) << _format(this->contacts[idx - 1].getFirstName()) << "|";
+			std::cout << std::right << std::setw(14) << _format(this->contacts[idx - 1].getLastName()) << "|";
+			std::cout << std::right << std::setw(14) << _format(this->contacts[idx - 1].getNickName()) << "|";
+			std::cout << std::right << std::setw(14) << _format(this->contacts[idx - 1].getPhoneNumber()) << "|";
+			std::cout << std::right << std::setw(14) << _format(this->contacts[idx - 1].getDarkestSecret()) << "|" << std::endl;
+			std::cout << " " << str << "\n";
 		}
 		else
 			std::cout << "warning: index out of range!!" << std::endl;

@@ -6,7 +6,7 @@
 /*   By: aaammari <aaammari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/20 18:24:43 by aaammari          #+#    #+#             */
-/*   Updated: 2023/05/24 11:21:20 by aaammari         ###   ########.fr       */
+/*   Updated: 2023/05/30 17:58:21 by aaammari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void cmd(PhoneBook ph)
 	
 }
 
-int main()
+int main(void)
 {
 	PhoneBook ph = PhoneBook();
 	cmd(ph);
