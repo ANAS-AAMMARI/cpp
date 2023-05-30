@@ -6,7 +6,7 @@
 /*   By: aaammari <aaammari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/27 16:41:56 by aaammari          #+#    #+#             */
-/*   Updated: 2023/05/28 14:45:50 by aaammari         ###   ########.fr       */
+/*   Updated: 2023/05/28 16:05:00 by aaammari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,14 +24,16 @@ int main(int ac, char **av)
 	std::ifstream	in_f(av[1]);
 	if (!in_f.is_open())
 	{
-		std::cout << "Coulnd't open the input file " << av[1] << std::endl;
+		std::cout << "Could not open the input file " << av[1] << std::endl;
 		return (-1);
 	}
 	std::string str = "";
 	std::string av2(av[2]);
 	std::string av3(av[3]);
+	std::string tmp = "";
 	
-	std::getline(in_f, str, '\0');
+	while(getline(in_f, tmp))
+		str += tmp + '\n'; 
 	size_t found;
 	while ((found = str.find(av2)) != std::string::npos)
 	{
@@ -47,7 +49,7 @@ int main(int ac, char **av)
 	std::ofstream	out_f(rp);
 	if (!out_f.is_open())
 	{
-		std::cout << "Coulnd't open the input file" << rp << std::endl;
+		std::cout << "Could not open the output file" << rp << std::endl;
 		return (-1);
 	}
 	out_f << str;
