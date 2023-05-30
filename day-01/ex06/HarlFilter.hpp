@@ -1,21 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Harl.hpp                                           :+:      :+:    :+:   */
+/*   HarlFilter.hpp                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aaammari <aaammari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/29 14:34:22 by aaammari          #+#    #+#             */
-/*   Updated: 2023/05/30 12:38:27 by aaammari         ###   ########.fr       */
+/*   Created: 2023/05/30 12:35:53 by aaammari          #+#    #+#             */
+/*   Updated: 2023/05/30 12:39:34 by aaammari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef HARL_HPP
-#define HARL_HPP
+#ifndef HARLFILTER_HPP
+#define HARLFILTER_HPP
 
 #include <iostream>
 
-class Harl
+class HarlFilter
 {
 	private:
 		void debug( void );
@@ -26,7 +26,5 @@ class Harl
 	public:
 		void complain( std::string level );
 };
-
-typedef void (Harl::*memberFuncPtr)(void);
 
 #endif

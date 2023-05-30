@@ -1,32 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Harl.hpp                                           :+:      :+:    :+:   */
+/*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aaammari <aaammari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/29 14:34:22 by aaammari          #+#    #+#             */
-/*   Updated: 2023/05/30 12:38:27 by aaammari         ###   ########.fr       */
+/*   Created: 2023/05/30 12:37:04 by aaammari          #+#    #+#             */
+/*   Updated: 2023/05/30 12:59:02 by aaammari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef HARL_HPP
-#define HARL_HPP
+#include "HarlFilter.hpp"
 
-#include <iostream>
-
-class Harl
+int main(int ac, char **av)
 {
-	private:
-		void debug( void );
-		void info( void );
-		void warning( void );
-		void error( void );
-	
-	public:
-		void complain( std::string level );
-};
-
-typedef void (Harl::*memberFuncPtr)(void);
-
-#endif
+	if (ac != 2)
+	{
+		std::cout << "error argument !!\n";
+		return (-1);
+	}
+	else
+	{
+		HarlFilter fltr = HarlFilter();
+		fltr.complain(av[1]);
+	}
+	return (0);
+}
