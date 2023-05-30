@@ -6,7 +6,7 @@
 /*   By: aaammari <aaammari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/29 14:38:24 by aaammari          #+#    #+#             */
-/*   Updated: 2023/05/30 10:51:34 by aaammari         ###   ########.fr       */
+/*   Updated: 2023/05/30 13:09:08 by aaammari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,14 +35,14 @@ void Harl::error(void)
 void Harl::complain(std::string level)
 {
 	int i = -1;
-	memberFuncPtr arrPtr[] = {&Harl::debug, &Harl::info, &Harl::warning, &Harl::error};
+	void (Harl::*memberFuncPtr[])(void) = {&Harl::debug, &Harl::info, &Harl::warning, &Harl::error};
 	std::string arrStr[] = {"DEBUG", "INFO", "WARNING", "ERROR"};
 	
 	while (++i < 4)
 	{
 		if (arrStr[i] == level)
 		{
-			(this->*arrPtr[i])();
+			(this->*memberFuncPtr[i])();
 			return ;
 		}
 	}

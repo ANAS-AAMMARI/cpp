@@ -6,7 +6,7 @@
 /*   By: aaammari <aaammari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/29 14:34:22 by aaammari          #+#    #+#             */
-/*   Updated: 2023/05/30 12:38:27 by aaammari         ###   ########.fr       */
+/*   Updated: 2023/05/30 13:05:56 by aaammari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,5 @@ class Harl
 	public:
 		void complain( std::string level );
 };
-
-typedef void (Harl::*memberFuncPtr)(void);
 
 #endif
