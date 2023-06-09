@@ -6,7 +6,7 @@
 #    By: aaammari <aaammari@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/05 12:28:28 by aaammari          #+#    #+#              #
-#    Updated: 2023/06/05 17:11:16 by aaammari         ###   ########.fr        #
+#    Updated: 2023/06/05 18:34:15 by aaammari         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,18 +21,18 @@ HEADER = Fixed.hpp
 SRC = main.cpp 		\
 		fixed.cpp	\
 
-OBJ = $(SRC:.cpp=.o)
+OBJS = $(SRC:.cpp=.o)
 
 all: $(NAME)
 
-$(NAME): $(OBJ)
-	$(CPP) $(CPPFLAGS)  $(OBJ) -o $(NAME)
+$(NAME): $(OBJS)
+	$(CPP) $(CPPFLAGS)  $(OBJS) -o $(NAME)
 
 %.o: %.cpp $(HEADER)
 	$(CPP) $(CPPFLAGS) -c $< -o $@
 
 clean:
-	rm -rf $(OBJ)
+	rm -rf $(OBJS)
 
 fclean: clean
 	rm -rf $(NAME)

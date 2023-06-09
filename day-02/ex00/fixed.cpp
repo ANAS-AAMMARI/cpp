@@ -6,13 +6,13 @@
 /*   By: aaammari <aaammari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 12:27:56 by aaammari          #+#    #+#             */
-/*   Updated: 2023/06/05 18:01:48 by aaammari         ###   ########.fr       */
+/*   Updated: 2023/06/09 18:42:02 by aaammari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fixed.hpp"
 
-const int Fixed::number_fract = 0;
+const int Fixed::number_fract = 8;
 
 Fixed::Fixed():fixed(0)
 {
