@@ -6,7 +6,7 @@
 /*   By: aaammari <aaammari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/16 11:46:51 by aaammari          #+#    #+#             */
-/*   Updated: 2023/06/19 09:41:44 by aaammari         ###   ########.fr       */
+/*   Updated: 2023/06/20 21:06:02 by aaammari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ Cat & Cat::operator=(const Cat & src)
 	if (this != &src)
 	{
 		this->_type = src.getType();
-		this->brain = new Brain();
+		this->brain = new Brain(*src.getBrain());
 	}	
 	return (*this);
 }

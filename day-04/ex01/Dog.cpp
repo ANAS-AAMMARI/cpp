@@ -6,7 +6,7 @@
 /*   By: aaammari <aaammari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/16 12:40:54 by aaammari          #+#    #+#             */
-/*   Updated: 2023/06/19 10:46:59 by aaammari         ###   ########.fr       */
+/*   Updated: 2023/06/20 21:05:45 by aaammari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ Dog & Dog::operator=(const Dog & src)
 	if (this != &src)
 	{
 		this->_type = src.getType();
-		this->brain = new Brain();
+		this->brain = new Brain(*src.getBrain());
 	}
 	return (*this);
 }
