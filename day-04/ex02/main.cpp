@@ -6,7 +6,7 @@
 /*   By: aaammari <aaammari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/16 10:31:25 by aaammari          #+#    #+#             */
-/*   Updated: 2023/06/19 11:08:04 by aaammari         ###   ########.fr       */
+/*   Updated: 2023/06/19 18:09:08 by aaammari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,5 +36,6 @@ int main()
 	std::cout << d1.getBrain()->ideas[0] << std::endl;
 	std::cout << tmp.getBrain()->ideas[0] << std::endl;
 	// system("leaks polymorphism | grep 'leaks for'");
+
 	return 0;
 }
