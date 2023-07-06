@@ -6,7 +6,7 @@
 /*   By: aaammari <aaammari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 19:11:49 by aaammari          #+#    #+#             */
-/*   Updated: 2023/07/05 19:16:01 by aaammari         ###   ########.fr       */
+/*   Updated: 2023/07/06 13:15:02 by aaammari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,20 +61,20 @@ int Form::getGradeToExecute() const
 
 void Form::beSigned(Bureaucrat & bureaucrat)
 {
-	if (bureaucrat.getGrade() > this->gradeToSign)
-		throw Form::GradeTooLowException();
-	else
+	if (bureaucrat.getGrade() <= this->getGradeToSign())
 		this->issigned = true;
+	else
+		throw Form::GradeTooLowException();
 }
 
 const char* Form::GradeTooHighException::what() const throw()
 {
-	return ("Grade is too high");
+	return ("grade is too high");
 }
 
 const char* Form::GradeTooLowException::what() const throw()
 {
-	return ("Grade is too low");
+	return ("grade is too low");
 }
 
 std::ostream & operator<<(std::ostream & o, Form const & rhs)
