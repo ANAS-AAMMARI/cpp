@@ -6,7 +6,7 @@
 /*   By: aaammari <aaammari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 15:37:57 by aaammari          #+#    #+#             */
-/*   Updated: 2023/07/05 15:49:32 by aaammari         ###   ########.fr       */
+/*   Updated: 2023/07/07 17:04:33 by aaammari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@ class Bureaucrat
 	private:
 		std::string const	name;
 		int					grade;
-	public:
 		Bureaucrat(void);
+	public:
 		Bureaucrat(std::string const name, int grade);
 		Bureaucrat(const Bureaucrat &src);
 		~Bureaucrat(void);

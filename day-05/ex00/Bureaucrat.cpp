@@ -6,15 +6,11 @@
 /*   By: aaammari <aaammari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 15:38:37 by aaammari          #+#    #+#             */
-/*   Updated: 2023/07/05 16:39:59 by aaammari         ###   ########.fr       */
+/*   Updated: 2023/07/07 17:04:52 by aaammari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Bureaucrat.hpp"
-
-Bureaucrat::Bureaucrat(void) : name("default"), grade(150)
-{
-}
 
 Bureaucrat::Bureaucrat(std::string const name, int grade) : name(name)
 {
