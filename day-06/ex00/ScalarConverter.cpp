@@ -6,18 +6,18 @@
 /*   By: aaammari <aaammari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 15:29:37 by aaammari          #+#    #+#             */
-/*   Updated: 2023/07/09 17:58:53 by aaammari         ###   ########.fr       */
+/*   Updated: 2023/07/13 09:38:12 by aaammari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ScalarConverter.hpp"
 
-bool checkChar(std::string input)
-{
-	if (input.length() == 1 && !isdigit(input[0]))
-		return (true);
-	return (false);
-}
+// bool checkChar(std::string input)
+// {
+// 	if (input.length() == 1 && !isdigit(input[0]))
+// 		return (true);
+// 	return (false);
+// }
 
 bool checkInt(std::string input)
 {
@@ -83,8 +83,8 @@ bool checkDouble(std::string input)
 
 bool checkPseudo(std::string input)
 {
-	std::string pseudo[5] = {"nan", "nanf", "+inf", "-inf", "inff"};
-	for (int i = 0; i < 5; i++)
+	std::string pseudo[6] = {"nan", "nanf", "+inf", "-inf", "-inff", "+inff"};
+	for (int i = 0; i < 6; i++)
 	{
 		if (input == pseudo[i])
 			return (true);
@@ -93,8 +93,8 @@ bool checkPseudo(std::string input)
 }
 int findType(std::string input)
 {
-	if (checkChar(input))
-		return (1);
+	// if (checkChar(input))
+	// 	return (1);
 	if (checkInt(input))
 		return (2);
 	if (checkFloat(input))
@@ -106,26 +106,26 @@ int findType(std::string input)
 	return (0);
 }
 
-void handleChar(char inp)
-{
-	bool isChar = true;
-	if (inp < 32 || inp > 126)
-	{
-		std::cout << "char: Non displayable" << std::endl;
-		isChar = false;
-	}
-	if (inp < 0 || inp > 127)
-	{
-		std::cout << "char: impossible" << std::endl;
-		isChar = false;
-	}
+// void handleChar(char inp)
+// {
+// 	bool isChar = true;
+// 	if (inp < 32 || inp > 126)
+// 	{
+// 		std::cout << "char: Non displayable" << std::endl;
+// 		isChar = false;
+// 	}
+// 	if (inp < 0 || inp > 127)
+// 	{
+// 		std::cout << "char: impossible" << std::endl;
+// 		isChar = false;
+// 	}
 
-	if (isChar)
-		std::cout << "char: " << inp << std::endl;
-	std::cout << "int: " << static_cast<int>(inp) << std::endl;
-	std::cout << "float: " << static_cast<float>(inp) << ".0f" << std::endl;
-	std::cout << "double: " << static_cast<double>(inp) << ".0" << std::endl;
-}
+// 	if (isChar)
+// 		std::cout << "char: " << inp << std::endl;
+// 	std::cout << "int: " << static_cast<int>(inp) << std::endl;
+// 	std::cout << "float: " << static_cast<float>(inp) << ".0f" << std::endl;
+// 	std::cout << "double: " << static_cast<double>(inp) << ".0" << std::endl;
+// }
 
 void handleInt(long int inp)
 {
@@ -202,12 +202,12 @@ void handleDouble(double inp)
 
 void ScalarConverter::convert(const std::string &input)
 {
-	if (findType(input) == 1)
-	{
-		char d = input[0];
-		handleChar(d);
-	}
-	else if (findType(input) == 2)
+	// if (findType(input) == 1)
+	// {
+	// 	char d = input[0];
+	// 	handleChar(d);
+	// }
+	if (findType(input) == 2)
 	{
 		long int i = std::strtoll(input.c_str(), NULL, 10);
 		handleInt(i);
