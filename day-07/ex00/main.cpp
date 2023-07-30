@@ -6,7 +6,7 @@
 /*   By: aaammari <aaammari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 09:06:51 by aaammari          #+#    #+#             */
-/*   Updated: 2023/07/11 10:27:09 by aaammari         ###   ########.fr       */
+/*   Updated: 2023/07/18 08:46:08 by aaammari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 int main( void ) {
 	int a = 2;
 	int b = 3;
-	::swap( a, b );
+	::swap( a, b);
 	std::cout << "a = " << a << ", b = " << b << std::endl;
 	std::cout << "min( a, b ) = " << ::min( a, b ) << std::endl;
 	std::cout << "max( a, b ) = " << ::max( a, b ) << std::endl;

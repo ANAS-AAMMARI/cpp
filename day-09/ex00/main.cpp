@@ -1,36 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   whatever.hpp                                       :+:      :+:    :+:   */
+/*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aaammari <aaammari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/11 09:03:48 by aaammari          #+#    #+#             */
-/*   Updated: 2023/07/18 08:45:56 by aaammari         ###   ########.fr       */
+/*   Created: 2023/07/29 15:57:49 by aaammari          #+#    #+#             */
+/*   Updated: 2023/07/29 16:32:13 by aaammari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef WHATEVER_HPP
-# define WHATEVER_HPP
+#include "BitcoinExchange.hpp"
 
-template <typename T>
-void swap(T &a, T &b)
+int main(void)
 {
-	T tmp = a;
-	a = b;
-	b = tmp;
+    
+    BitcoinExchange b("data.csv");
+    std::cout << "size " << b.getSize()<< std::endl;
+    std::cout << "value " << b.getValue("2022-03-29") << std::endl;
+    return (0);
 }
-
-template <typename T>
-T min(T const &a, T const &b)
-{
-	return (a < b ? a : b);
-}
-
-template <typename T>
-T max(T const &a, T const &b)
-{
-	return (a > b ? a : b);
-}
-
-#endif
