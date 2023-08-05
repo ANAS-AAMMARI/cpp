@@ -6,7 +6,7 @@
 /*   By: aaammari <aaammari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 12:21:14 by aaammari          #+#    #+#             */
-/*   Updated: 2023/07/30 14:03:20 by aaammari         ###   ########.fr       */
+/*   Updated: 2023/08/05 17:31:54 by aaammari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int BitcoinExchange::getSize(void) const
     return (data.size());
 }
 
-bool checkDate(const std::string &date)
+bool checkDate(const std::string date)
 {
     size_t i = 0;
     if (date.length() != 10)
@@ -56,21 +56,36 @@ bool checkDate(const std::string &date)
                 return (false);
         i++;
     }
-    struct tm tm;
-    tm.tm_year = std::atoi(date.substr(0, 4).c_str()) - 1900;
-    tm.tm_mon = std::atoi(date.substr(5, 2).c_str()) - 1;
-    tm.tm_mday = std::atoi(date.substr(8, 2).c_str());
-    if (mktime(&tm) == -1)
+    int year = std::atoi(date.substr(0, 4).c_str());
+    int month = std::atoi(date.substr(5, 2).c_str());
+    int day = std::atoi(date.substr(8, 2).c_str());
+    if (year < 1900 || year > 9999)
         return (false);
+    if (month < 1 || month > 12)
+        return (false);
+    if (day < 1 || day > 31)
+        return (false);
+    if (month == 2)
+    {
+       if ((year % 4 == 0 && year % 100 != 0) || year % 400 == 0)
+       {
+           if (day > 29)
+               return (false);
+       }
+       else if (day > 28)
+           return (false);
+    }
     return (true);
 }
 
-bool checkValue(std::string const &value)
+bool checkValue(std::string const value)
 {
     size_t i = 0;
     int dot = 0;
     if (value.length() == 0)
         return (false);
+    if (value[0] == '-' || value[0] == '+')
+        i++;
     while (i < value.length())
     {
         if (value[i] == '.')
@@ -109,12 +124,16 @@ void BitcoinExchange::setData(std::string const &filename)
                 i++;
                 continue;
             }
-            std::cout << date << " " << value << std::endl;
             removeSpaces(date);
             removeSpaces(value);
-            if (!checkDate(date) || !checkValue(value))
+            if (checkDate(date) == false)
             {
-                std::cout << "Invalid date or value." << std::endl;
+                std::cerr << "Error: bad input => " << date << std::endl;
+                continue;
+            }
+            if (checkValue(value) == false)
+            {
+                std::cerr << "Error: bad input => " << value << std::endl;
                 continue;
             }
             data[date] = std::atof(value.c_str());
@@ -138,14 +157,28 @@ double BitcoinExchange::getValue(std::string const &date) const
         return (-1);
 }
 
+std::string BitcoinExchange::getMinDate(const std::string &date) const
+{
+    if (this->data.size() == 0)
+        return ("");
+    std::map<std::string, double>::const_iterator it = data.begin();
+    std::string minDate = it->first;
+    while (it != data.end())
+    {
+        if (it->first < date && it->first > minDate)
+            minDate = it->first;
+        it++;
+    }
+    return (minDate);
+}
+
 bool checkLine(std::string const &line)
 {
     if (line.length() == 0)
         return (false);
     if (line.find_first_of('|') == std::string::npos || line.find_last_of('|') != 11  || line.find_last_of('|') != 11)
         return (false);
-    size_t pos = line.find_first_of('|');
-    if (line[10] != ' ' || line[10] != '\t' || line[12] != ' ' || line[12] != '\t')
+    if (line[10] != ' ' && line[10] != '\t' && line[12] != ' ' && line[12] != '\t')
         return (false);
     return (true);
 }
@@ -167,36 +200,48 @@ void BitcoinExchange::readInput(std::string const &filename)
     {
         while (getline(file, line))
         {
+            if (line.empty())
+                continue;
+            if ((line.find("date") != std::string::npos || line.find("value") != std::string::npos) && i == 0)
+            {
+                i++;
+                continue;
+            }
             if (!checkLine(line))
             {
-                std::cout << "Invalid line." << std::endl;
+                std::cout << "bad intput => " << line << std::endl;
                 continue;
             }
             std::stringstream ss(line);
             std::getline(ss, date, '|');
             std::getline(ss, value);
-            if (i == 0)
-            {
-                i++;
-                continue;
-            }
             removeSpaces(date);
             removeSpaces(value);
-            if (!checkDate(date) || !checkValue(value))
+            if (!checkDate(date))
             {
-                std::cout << "Invalid date or value." << std::endl;
+                std::cout << "Error: bad input => " << line << std::endl;
+                continue;
+            }
+            if (!checkValue(value))
+            {
+                std::cout << "Error: bad input => " << value << std::endl;
                 continue;
             }
             val = std::atof(value.c_str());
-            if (val < 0 || val > 1000)
+            if (val < 0)
             {
-                std::cout << "Invalid value." << std::endl;
+                std::cout << "Error: not a positive number." << std::endl;
+                continue;
+            }
+            else if (val > 1000)
+            {
+                std::cout << "Error: too large number." << std::endl;
                 continue;
             }
             if (this->getValue(date) != -1)
-            {
-                std::cout << date << " => " << this->getValue(date) << std::endl;
-            }
+                std::cout << date << " => " << val << " = " << val * this->getValue(date) << std::endl;
+            else
+                std::cout << date << " => " << val << " = " << val * this->getValue(this->getMinDate(date)) << std::endl; 
             i++;
         }
         file.close();
