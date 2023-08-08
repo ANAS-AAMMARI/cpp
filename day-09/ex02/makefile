@@ -6,7 +6,7 @@
 #    By: aaammari <aaammari@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/07 18:24:43 by aaammari          #+#    #+#              #
-#    Updated: 2023/08/07 18:25:55 by aaammari         ###   ########.fr        #
+#    Updated: 2023/08/08 18:05:32 by aaammari         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,16 +18,16 @@ CPPFLAGS = -Wall -Wextra -Werror -std=c++98
 
 HEADER = PmergeMe.hpp
 
-SRCS = main.c PmergeMe.cpp
+SRCS = main.cpp PmergeMe.cpp
 
-OBJS = $(SRCS:.c=.o)
+OBJS = $(SRCS:.cpp=.o)
 
 all: $(NAME)
 
 $(NAME): $(OBJS)
 	$(CPP) $(CPPFLAGS) $(OBJS) -o $(NAME)
 
-%.o: %.c $(HEADER)
+%.o: %.cpp $(HEADER)
 	$(CPP) $(CPPFLAGS) -c $< -o $@
 
 clean:

@@ -6,7 +6,7 @@
 /*   By: aaammari <aaammari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/07 18:19:07 by aaammari          #+#    #+#             */
-/*   Updated: 2023/08/07 18:35:01 by aaammari         ###   ########.fr       */
+/*   Updated: 2023/08/08 18:58:06 by aaammari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@ int main(int ac, char **av)
     }
     PmergeMe p;
     for (int i = 1; i < ac; i++)
-        p.parse(av[i]);
-    // std::vector<int> vec = p.getVec();
+        if (p.parse(av[i]) == false)
+            return (1);
     p.getVec().begin();
     std::vector<int>::const_iterator it = p.getVec().cbegin();
     std::vector<int>::const_iterator ite = p.getVec().cend();
@@ -32,5 +32,9 @@ int main(int ac, char **av)
         if (++it != ite)
             std::cout << " ";
     }
+    std::cout << std::endl;
+        
+    p.fillVecPair();
+    p.printVecPair();
     return (0);
 }
