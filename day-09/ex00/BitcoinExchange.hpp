@@ -6,7 +6,7 @@
 /*   By: aaammari <aaammari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 12:21:20 by aaammari          #+#    #+#             */
-/*   Updated: 2023/08/05 15:17:54 by aaammari         ###   ########.fr       */
+/*   Updated: 2023/08/08 10:43:20 by aaammari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,8 @@ public:
     BitcoinExchange &operator=(BitcoinExchange const &src);
     ~BitcoinExchange(void);
     void setData(const std::string &filename);
-    double getValue(const std::string &date) const;
-    std::string getMinDate(const std::string &date) const;
+    // double getValue(const std::string &date) const;
+    double getMinDate(const std::string &date) const;
     int getSize(void) const;
     void readInput(std::string const &filename);
 };

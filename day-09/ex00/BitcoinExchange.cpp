@@ -6,7 +6,7 @@
 /*   By: aaammari <aaammari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 12:21:14 by aaammari          #+#    #+#             */
-/*   Updated: 2023/08/05 17:31:54 by aaammari         ###   ########.fr       */
+/*   Updated: 2023/08/08 10:49:24 by aaammari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,28 +148,42 @@ void BitcoinExchange::setData(std::string const &filename)
     }
 }
 
-double BitcoinExchange::getValue(std::string const &date) const
-{
-   std::map<std::string, double>::const_iterator it = data.find(date);
-    if (it != data.end())
-        return (it->second);
-    else
-        return (-1);
-}
+// double BitcoinExchange::getValue(std::string const &date) const
+// {
+//     if (this->data.empty())
+//         return (-1);
+//     std::map<std::string, double>::const_iterator it = data.find(date);
+//     if (it != data.end())
+//         return (it->second);
+//     else
+//         return (-1);
+// }
 
-std::string BitcoinExchange::getMinDate(const std::string &date) const
+// std::string BitcoinExchange::getMinDate(const std::string &date) const
+// {
+//     if (this->data.size() == 0)
+//         return ("");
+//     std::map<std::string, double>::const_iterator it = data.begin();
+//     std::string minDate = it->first;
+//     while (it != data.end())
+//     {
+//         if (it->first < date && it->first > minDate)
+//             minDate = it->first;
+//         it++;
+//     }
+//     return (minDate);
+// }
+
+double BitcoinExchange::getMinDate(const std::string &date) const
 {
     if (this->data.size() == 0)
-        return ("");
-    std::map<std::string, double>::const_iterator it = data.begin();
-    std::string minDate = it->first;
-    while (it != data.end())
-    {
-        if (it->first < date && it->first > minDate)
-            minDate = it->first;
-        it++;
-    }
-    return (minDate);
+        return (-1);
+    std::map<std::string, double>::const_iterator it = data.lower_bound(date);
+    if (it != data.end() && it->first == date)
+        return (it->second);
+    else if (it != data.begin())
+        return ((--it)->second);
+    return (-1);
 }
 
 bool checkLine(std::string const &line)
@@ -238,10 +252,10 @@ void BitcoinExchange::readInput(std::string const &filename)
                 std::cout << "Error: too large number." << std::endl;
                 continue;
             }
-            if (this->getValue(date) != -1)
-                std::cout << date << " => " << val << " = " << val * this->getValue(date) << std::endl;
+            if (this->getMinDate(date) != -1)
+                std::cout << date << " => " << val << " = " << val * this->getMinDate(date) << std::endl;
             else
-                std::cout << date << " => " << val << " = " << val * this->getValue(this->getMinDate(date)) << std::endl; 
+                std::cout << "Error: no date found." << std::endl;
             i++;
         }
         file.close();
