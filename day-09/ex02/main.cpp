@@ -6,7 +6,7 @@
 /*   By: aaammari <aaammari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/07 18:19:07 by aaammari          #+#    #+#             */
-/*   Updated: 2023/08/08 18:58:06 by aaammari         ###   ########.fr       */
+/*   Updated: 2023/08/09 17:40:44 by aaammari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,18 +23,12 @@ int main(int ac, char **av)
     for (int i = 1; i < ac; i++)
         if (p.parse(av[i]) == false)
             return (1);
-    p.getVec().begin();
-    std::vector<int>::const_iterator it = p.getVec().cbegin();
-    std::vector<int>::const_iterator ite = p.getVec().cend();
-    while (it != ite)
-    {
-        std::cout << *it;
-        if (++it != ite)
-            std::cout << " ";
-    }
-    std::cout << std::endl;
-        
+    p.printVec();
     p.fillVecPair();
     p.printVecPair();
+    p.insertionSort();
+    p.printVecPair();
+    p.fordJohnson();
+    p.printVec();
     return (0);
 }

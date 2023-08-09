@@ -6,7 +6,7 @@
 /*   By: aaammari <aaammari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/07 13:53:11 by aaammari          #+#    #+#             */
-/*   Updated: 2023/08/08 18:52:29 by aaammari         ###   ########.fr       */
+/*   Updated: 2023/08/09 18:56:34 by aaammari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,96 @@ bool PmergeMe::parse(std::string str)
         vec.push_back(std::atoi(tmp.c_str()));
     }
     return (true);
+}
+
+int PmergeMe::jacobsthal(int n)
+{
+    if (n == 0)
+        return (0);
+    if (n == 1)
+        return (1);
+    return (jacobsthal(n - 1) + 2 * jacobsthal(n - 2));
+}
+
+int PmergeMe::binarySearch(int l, int r, int x)
+{
+    int m;
+    while (l <= r) {
+        m = l + (r - l) / 2;
+        if (this->vec[m] == x)
+            return m;
+        if (this->vec[m] < x)
+            l = m + 1;
+        else
+            r = m - 1;
+    }
+    return l;
+}
+
+void PmergeMe::insertionSort(void)
+{
+    size_t i, j, len = vec2.size();
+    std::pair<int, int> tmp;
+    for (i = 1; i < len; i++)
+    {
+        tmp = vec2[i];
+        j = i;
+        while (j > 0 && vec2[j - 1].first > tmp.first)
+        {
+            vec2[j] = vec2[j - 1];
+            j--;
+        }
+        vec2[j] = tmp;
+    }
+}
+
+void PmergeMe::fordJohnson(void)
+{
+    vec.clear();
+    for(size_t i = 0; i < vec2.size(); i++)
+        vec.push_back(vec2[i].first);
+    vec.push_back(vec2[vec2.size() - 1].second);
+    vec2.pop_back();
+    printVec();
+    int len = vec2.size();
+    int jac;
+    bool isJac = false;
+    while (--len >= 0)
+    {
+        if (!isJac)
+        {
+            jac = jacobsthal(len);
+            isJac = true;
+        }
+        else
+            jac--;   
+        int index = binarySearch(0, vec.size() - 1, vec2[jac].second);
+        if (vec2[jac].second == 3)
+        {
+            printVec();
+            std::cout << "index: " << index << " " << jac << std::endl;
+        }   
+        vec.insert(vec.begin() + index, vec2[len].second);
+    }
+    if (PmergeMe::Struggler != -1)
+    {
+        int index = binarySearch(0, vec.size() - 1, PmergeMe::Struggler);
+        vec.insert(vec.begin() + index, PmergeMe::Struggler);
+    }
+}
+
+void PmergeMe::printVec(void)
+{
+    std::cout << "before: ";
+    std::vector<int>::const_iterator it = this->getVec().begin();
+    std::vector<int>::const_iterator ite = this->getVec().end();
+    while (it != ite)
+    {
+        std::cout << *it;
+        if (++it != ite)
+            std::cout << " ";
+    }
+    std::cout << std::endl;
 }
 
 void PmergeMe::printVecPair(void)
