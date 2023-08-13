@@ -6,7 +6,7 @@
 /*   By: aaammari <aaammari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 12:21:14 by aaammari          #+#    #+#             */
-/*   Updated: 2023/08/13 12:56:05 by aaammari         ###   ########.fr       */
+/*   Updated: 2023/08/13 18:31:31 by aaammari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -212,6 +212,12 @@ void BitcoinExchange::readInput(std::string const &filename)
     int i = 0;
     if (file.is_open())
     {
+        getline(file, line, '\0');
+        if (line.empty())
+        {
+            std::cout << "Empty file." << std::endl;
+            exit(1);
+        }
         while (getline(file, line))
         {
             if (line.empty())
