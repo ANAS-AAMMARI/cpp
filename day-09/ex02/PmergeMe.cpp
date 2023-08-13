@@ -6,7 +6,7 @@
 /*   By: aaammari <aaammari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/07 13:53:11 by aaammari          #+#    #+#             */
-/*   Updated: 2023/08/13 10:01:58 by aaammari         ###   ########.fr       */
+/*   Updated: 2023/08/13 11:49:17 by aaammari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ int PmergeMe::Struggler = -1;
 
 PmergeMe::PmergeMe(void)
 {
+    this->timeDeque = 0;
+    this->timeVec = 0;
 }
 
 PmergeMe::PmergeMe(const PmergeMe & src)
@@ -32,6 +34,15 @@ PmergeMe & PmergeMe::operator=(const PmergeMe & rhs)
     if (this != &rhs)
     {
         this->vec = rhs.vec;
+        this->vec2 = rhs.vec2;
+        this->timeDeque = rhs.timeDeque;
+        this->timeVec = rhs.timeVec;
+        this->deque = rhs.deque;
+        this->dequePair = rhs.dequePair;
+        this->jacob = rhs.jacob;
+        this->combination = rhs.combination;
+        this->jacobDeque = rhs.jacobDeque;
+        this->combinationDeque = rhs.combinationDeque;
     }
     return (*this);
 }
@@ -72,6 +83,8 @@ bool PmergeMe::parse(std::string str)
     std::stringstream ss(str);
     int nbr;
     std::string str2;
+    clock_t start;
+    clock_t end;
     while (ss >> tmp)
     {
         if (tmp[0] == '-' || tmp[0] == '+')
@@ -89,8 +102,14 @@ bool PmergeMe::parse(std::string str)
             std::cout << "Error: " << nbr << " is negative" << std::endl;
             return (false);
         }
+        start = clock();
         vec.push_back(nbr);
+        end = clock();
+        this->timeVec += (double)(end - start) * 1000000 / CLOCKS_PER_SEC;
+        start = clock();
         deque.push_back(nbr);
+        end = clock();
+        this->timeDeque += (double)(end - start) * 1000000 / CLOCKS_PER_SEC;
     }
     return (true);
 }
@@ -374,3 +393,24 @@ void PmergeMe::printDeque(void)
     }
     std::cout << std::endl;
 }
+
+// function for both implementation ==========================================
+
+void PmergeMe::mergeInsertionSort(void)
+{
+    this->printVec(this->getVec(), std::string("before: "));
+    clock_t start = clock();
+    this->fillVecPair();
+    this->fordJohnson();
+    clock_t end = clock();
+    this->timeVec += static_cast<double>(end - start) * 1000000 / CLOCKS_PER_SEC;
+    this->printVec(this->getVec(), std::string("after: "));
+    start = clock();
+    this->fillDequePair();
+    this->fordJohnsonDeque();
+    end = clock();
+    this->timeDeque += static_cast<double>(end - start) * 1000000 / CLOCKS_PER_SEC;
+    std::cout << "Time to process a range of " << this->vec.size() << " elements with std::vector " << this->timeVec << " us" << std::endl;
+    std::cout << "Time to process a range of " << this->deque.size() << " elements with std::deque " << this->timeDeque << " us" << std::endl;
+}
+

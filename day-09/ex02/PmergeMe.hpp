@@ -6,7 +6,7 @@
 /*   By: aaammari <aaammari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/07 13:30:28 by aaammari          #+#    #+#             */
-/*   Updated: 2023/08/13 09:58:28 by aaammari         ###   ########.fr       */
+/*   Updated: 2023/08/13 11:25:12 by aaammari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@ class PmergeMe
     std::deque<std::pair<int, int> > dequePair;
     std::deque< long long> jacobDeque;
     std::deque< long long> combinationDeque;
+    double timeVec;
+    double timeDeque;
     public:
         static int Struggler;
         PmergeMe(void);
@@ -59,8 +61,8 @@ class PmergeMe
         void makeJacobDeque(void);
         int binarySearchDeque(int l, int r, int x);
         
-        // time measurement
-        void timeMeasurement(void);
+        // function for both implementations vector and deque
+        void mergeInsertionSort(void);
 };
 
 

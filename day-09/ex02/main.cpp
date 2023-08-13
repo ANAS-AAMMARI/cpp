@@ -6,7 +6,7 @@
 /*   By: aaammari <aaammari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/07 18:19:07 by aaammari          #+#    #+#             */
-/*   Updated: 2023/08/13 09:46:52 by aaammari         ###   ########.fr       */
+/*   Updated: 2023/08/13 11:17:28 by aaammari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,12 +28,6 @@ int main(int ac, char **av)
         std::cout << "Error: not enough numbers" << std::endl;
         return (false);
     }
-    p.printVec(p.getVec(), std::string("before: "));
-    p.fillVecPair();
-    p.fordJohnson();
-    p.printVec(p.getVec(), std::string("after: "));
-    p.fillDequePair();
-    p.fordJohnsonDeque();
-    p.printDeque();
+    p.mergeInsertionSort();
     return (0);
 }
