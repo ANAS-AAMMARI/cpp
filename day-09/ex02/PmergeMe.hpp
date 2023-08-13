@@ -6,7 +6,7 @@
 /*   By: aaammari <aaammari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/07 13:30:28 by aaammari          #+#    #+#             */
-/*   Updated: 2023/08/09 16:47:38 by aaammari         ###   ########.fr       */
+/*   Updated: 2023/08/13 09:58:28 by aaammari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,18 @@
 #include <deque>
 #include <sstream>
 #include <utility>
+#include <ctime>
 
 class PmergeMe
 {
     std::vector<std::pair<int, int> > vec2;
     std::vector<int> vec;
+    std::vector< long long> jacob;
+    std::vector< long long> combination;
+    std::deque<int> deque;
+    std::deque<std::pair<int, int> > dequePair;
+    std::deque< long long> jacobDeque;
+    std::deque< long long> combinationDeque;
     public:
         static int Struggler;
         PmergeMe(void);
@@ -31,14 +38,29 @@ class PmergeMe
         ~PmergeMe();
         PmergeMe & operator=(const PmergeMe & rhs);
         bool parse(std::string str);
+        // vector implementation
         std::vector<int> const & getVec(void) const;
-        void printVec(void);
+        void printVec(std::vector<int> vec, std::string str);
         void fillVecPair(void);
         void printVecPair(void);
         void insertionSort(void);
-        int jacobsthal(int n);
+        long long jacobsthal(int n);
+        void generateCombination(void);
+        void makeJacob(void);
         int binarySearch(int l, int r, int x);
         void fordJohnson(void);
+        // deque inplementation
+        void fillDequePair(void);
+        void printDequePair(void);
+        void insertionSortDeque(void);
+        void fordJohnsonDeque(void);
+        void printDeque(void);
+        void generateCombinationDeque(void);
+        void makeJacobDeque(void);
+        int binarySearchDeque(int l, int r, int x);
+        
+        // time measurement
+        void timeMeasurement(void);
 };
 
 

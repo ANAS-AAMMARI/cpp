@@ -6,7 +6,7 @@
 /*   By: aaammari <aaammari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/07 13:53:11 by aaammari          #+#    #+#             */
-/*   Updated: 2023/08/09 18:56:34 by aaammari         ###   ########.fr       */
+/*   Updated: 2023/08/13 10:01:58 by aaammari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,18 +89,45 @@ bool PmergeMe::parse(std::string str)
             std::cout << "Error: " << nbr << " is negative" << std::endl;
             return (false);
         }
-        vec.push_back(std::atoi(tmp.c_str()));
+        vec.push_back(nbr);
+        deque.push_back(nbr);
     }
     return (true);
 }
 
-int PmergeMe::jacobsthal(int n)
+long long PmergeMe::jacobsthal(int n)
 {
     if (n == 0)
         return (0);
     if (n == 1)
         return (1);
     return (jacobsthal(n - 1) + 2 * jacobsthal(n - 2));
+}
+
+void PmergeMe::makeJacob(void)
+{
+    long long jac;
+    long long len = vec.size();
+    size_t size = vec2.size();
+    for (size_t i = 0; i < size + 10; i++)
+    {
+        jac = jacobsthal(i);
+        if (jac > (len * 2))
+            break;
+        jacob.push_back(jac);
+    }    
+}
+
+void PmergeMe::generateCombination(void)
+{
+    long long last = 1;
+    makeJacob();
+    for (size_t i = 3; i < jacob.size(); i++)
+    {
+        for (long long j = jacob[i]; j > last; j--)
+            combination.push_back(j);
+        last = jacob[i];
+    }
 }
 
 int PmergeMe::binarySearch(int l, int r, int x)
@@ -126,55 +153,61 @@ void PmergeMe::insertionSort(void)
     {
         tmp = vec2[i];
         j = i;
-        while (j > 0 && vec2[j - 1].first > tmp.first)
+        while (j > 0 && vec2[j - 1].second > tmp.second)
         {
             vec2[j] = vec2[j - 1];
             j--;
         }
         vec2[j] = tmp;
     }
+    // std::cout << "Unsorted: \n";
 }
 
 void PmergeMe::fordJohnson(void)
 {
     vec.clear();
+    insertionSort();
     for(size_t i = 0; i < vec2.size(); i++)
-        vec.push_back(vec2[i].first);
-    vec.push_back(vec2[vec2.size() - 1].second);
-    vec2.pop_back();
-    printVec();
-    int len = vec2.size();
-    int jac;
-    bool isJac = false;
-    while (--len >= 0)
-    {
-        if (!isJac)
+        vec.push_back(vec2[i].second);
+    vec.insert(vec.begin(), vec2[0].first);
+    generateCombination();
+    // std::cout << "Sorted: \n";
+    size_t len = vec2.size();
+    // std::cout << "Combination: ";
+    // std::vector<long long>::const_iterator it = combination.begin();
+    // std::vector<long long>::const_iterator ite = combination.end();
+    // while (it != ite)
+    // {
+    //     std::cout << *it;
+    //     if (++it != ite)
+    //         std::cout << " ";
+    // }
+    // std::cout << std::endl;
+    int index;
+    size_t i = 0;
+    while (i < len)
+    {   
+        if (combination[i] - 1 >= (long long)len)
         {
-            jac = jacobsthal(len);
-            isJac = true;
+            i++;
+            continue;
         }
-        else
-            jac--;   
-        int index = binarySearch(0, vec.size() - 1, vec2[jac].second);
-        if (vec2[jac].second == 3)
-        {
-            printVec();
-            std::cout << "index: " << index << " " << jac << std::endl;
-        }   
-        vec.insert(vec.begin() + index, vec2[len].second);
+        index = binarySearch(0, vec.size() - 1, vec2[combination[i] - 1].first);
+        vec.insert(vec.begin() + index, vec2[combination[i] - 1].first);
+        i++;
     }
     if (PmergeMe::Struggler != -1)
     {
-        int index = binarySearch(0, vec.size() - 1, PmergeMe::Struggler);
+        index = binarySearch(0, vec.size() - 1, PmergeMe::Struggler);
         vec.insert(vec.begin() + index, PmergeMe::Struggler);
     }
 }
 
-void PmergeMe::printVec(void)
+void PmergeMe::printVec(std::vector<int> vec, std::string str)
 {
-    std::cout << "before: ";
-    std::vector<int>::const_iterator it = this->getVec().begin();
-    std::vector<int>::const_iterator ite = this->getVec().end();
+    std::cout << str;
+    std::vector<int>::const_iterator it = vec.begin();
+    std::vector<int>::const_iterator ite = vec.end();
     while (it != ite)
     {
         std::cout << *it;
@@ -190,6 +223,154 @@ void PmergeMe::printVecPair(void)
     for (size_t i = 0; i < vec2.size(); i++)
     {
         std::cout << "(" << vec2[i].first << ", " << vec2[i].second << ") ";
+    }
+    std::cout << std::endl;
+}
+
+// deque functions implementation ====================================================
+
+void PmergeMe::fillDequePair(void)
+{
+    std::pair<int, int> pair;
+    
+    if (deque.size() % 2 != 0)
+    {
+        PmergeMe::Struggler = deque.back();
+        deque.pop_back();
+    }
+    for(size_t i = 0; i < deque.size(); i += 2)
+    {
+        if (deque[i] > deque[i + 1])
+        {
+            pair.first = deque[i + 1];
+            pair.second = deque[i];
+        }
+        else
+        {
+            pair.first = deque[i];
+            pair.second = deque[i + 1];
+        }
+        dequePair.push_back(pair);
+    }
+}
+
+void PmergeMe::insertionSortDeque(void)
+{
+    size_t i, j, len = dequePair.size();
+    std::pair<int, int> tmp;
+    for (i = 1; i < len; i++)
+    {
+        tmp = dequePair[i];
+        j = i;
+        while (j > 0 && dequePair[j - 1].second > tmp.second)
+        {
+            dequePair[j] = dequePair[j - 1];
+            j--;
+        }
+        dequePair[j] = tmp;
+    }
+}
+
+void PmergeMe::printDequePair(void)
+{
+    std::cout << "dequePair: ";
+    for (size_t i = 0; i < dequePair.size(); i++)
+    {
+        std::cout << "(" << dequePair[i].first << ", " << dequePair[i].second << ") ";
+    }
+    std::cout << std::endl;
+}
+
+void PmergeMe::makeJacobDeque(void)
+{
+    long long jac;
+    size_t size = dequePair.size();
+    long long len = deque.size() * 2;
+    for (size_t i = 0; i < size + 10; i++)
+    {
+        jac = jacobsthal(i);
+        if (jac > len)
+            break;
+        jacobDeque.push_back(jac);
+    }
+}
+
+void PmergeMe::generateCombinationDeque(void)
+{
+    long long last = 1;
+    makeJacobDeque();
+    for (size_t i = 3; i < jacobDeque.size(); i++)
+    {
+        for (long long j = jacobDeque[i]; j > last; j--)
+            combinationDeque.push_back(j);
+        last = jacobDeque[i];
+    }
+}
+
+int PmergeMe::binarySearchDeque(int l, int r, int x)
+{
+    if (r >= l)
+    {
+        int mid = l + (r - l) / 2;
+        if (deque[mid] == x)
+            return mid;
+        if (deque[mid] > x)
+            return binarySearchDeque(l, mid - 1, x);
+        return binarySearchDeque(mid + 1, r, x);
+    }
+    return l;
+}
+
+void PmergeMe::fordJohnsonDeque(void)
+{
+    deque.clear();
+    insertionSortDeque();
+    for(size_t i = 0; i < dequePair.size(); i++)
+        deque.push_back(dequePair[i].second);
+    deque.insert(deque.begin(), dequePair[0].first);
+    generateCombinationDeque();
+    size_t len = dequePair.size();
+    // std::cout << "Combination: ";
+    // std::vector<long long>::const_iterator it = combination.begin();
+    // std::vector<long long>::const_iterator ite = combination.end();
+    // while (it != ite)
+    // {
+    //     std::cout << *it;
+    //     if (++it != ite)
+    //         std::cout << " ";
+    // }
+    // std::cout << std::endl;
+    int index;
+    size_t i = 0;
+    while (i < len)
+    {   
+        if ((combinationDeque[i] - 1) >= (long long)len)
+        {
+            i++;
+            continue;
+        }
+        index = binarySearchDeque(0, deque.size() - 1, dequePair[combinationDeque[i] - 1].first);
+        // std::cout << "com: " << combinationDeque[i] - 1 << " value: " << dequePair[combinationDeque[i] - 1].first << " index: "<< index << std::endl;
+        deque.insert(deque.begin() + index, dequePair[combinationDeque[i] - 1].first);
+        i++;
+    }
+    if (PmergeMe::Struggler != -1)
+    {
+        index = binarySearchDeque(0, deque.size() - 1, PmergeMe::Struggler);
+        deque.insert(deque.begin() + index, PmergeMe::Struggler);
+    }
+}
+
+void PmergeMe::printDeque(void)
+{
+    std::cout << "after: ";
+    std::deque<int>::const_iterator it = deque.begin();
+    std::deque<int>::const_iterator ite = deque.end();
+    while (it != ite)
+    {
+        std::cout << *it;
+        if (++it != ite)
+            std::cout << " ";
     }
     std::cout << std::endl;
 }
