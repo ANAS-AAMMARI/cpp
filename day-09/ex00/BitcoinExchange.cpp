@@ -6,7 +6,7 @@
 /*   By: aaammari <aaammari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 12:21:14 by aaammari          #+#    #+#             */
-/*   Updated: 2023/08/08 10:49:24 by aaammari         ###   ########.fr       */
+/*   Updated: 2023/08/13 12:56:05 by aaammari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ bool checkDate(const std::string date)
         return (false);
     if (month < 1 || month > 12)
         return (false);
-    if (day < 1 || day > 31)
+    if (day < 1 || day > 31 || ((month == 4 || month == 6 || month == 9 || month == 11) && day > 30))
         return (false);
     if (month == 2)
     {
@@ -216,6 +216,12 @@ void BitcoinExchange::readInput(std::string const &filename)
         {
             if (line.empty())
                 continue;
+            if ((line.find("date") == std::string::npos || line.find("value") == std::string::npos) && i == 0)
+            {
+                std::cout << "need title of file => \"date | value\"" << std::endl;
+                i++;
+                continue;
+            }
             if ((line.find("date") != std::string::npos || line.find("value") != std::string::npos) && i == 0)
             {
                 i++;
