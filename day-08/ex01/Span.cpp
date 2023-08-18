@@ -6,7 +6,7 @@
 /*   By: aaammari <aaammari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/15 08:22:50 by aaammari          #+#    #+#             */
-/*   Updated: 2023/07/15 14:23:26 by aaammari         ###   ########.fr       */
+/*   Updated: 2023/08/18 18:24:20 by aaammari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ int Span::shortestSpan() const
         throw Span::lowSizeException();
     std::list<int> tmp = this->lst;
     std::list<int>::iterator it = tmp.begin();
+    tmp.sort();
     int min = *it;
     int diff = std::abs(*(++it) - min);
     while (it != tmp.end())
